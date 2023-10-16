@@ -54,7 +54,7 @@ build-kubectl-test-image:
 
 #deploy-kube-prometheus-stack: @ Deploy kube-prometheus-stack
 deploy-kube-prometheus-stack:
-	./scripts/kind-deploy-kube-prometheus-stack.sh
+	./scripts/kind-add-kube-prometheus-stack.sh
 
 #delete-cluster: @ Delete K8s cluster
 delete-cluster:
