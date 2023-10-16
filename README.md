@@ -76,7 +76,7 @@ If you already have a kubeconfig, make a backup
 
 ## Create kind k8s cluster, Nginx ingress, MetaLB
 
-All operations can be performed using make, for example
+All operations can be performed using make, eg
 ```bash
 make install-all-no-demo-workloads
 ```
