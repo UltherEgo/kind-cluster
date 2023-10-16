@@ -38,6 +38,19 @@ deploy-kube-prometheus-stack       - Deploy kube-prometheus-stack
 delete-cluster                     - Delete K8s cluste
 ```
 
+## Before use
+
+```bash
+[ -e ~/.kube/config ] && mv ~/.kube/config ~/.kube/config_bck
+```
+
+## Create kind k8s cluster, Nginx ingress, MetaLB
+
+All operations can be performed using make, for example
+```bash
+make install-all-no-demo-workloads
+```
+
 ## Install all (kind k8s cluster, Nginx ingress, MetaLB, demo workloads)
 
 
