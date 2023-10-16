@@ -15,6 +15,22 @@ Create local Kubernetes clusters using Docker container "nodes" with [kind](http
 * [jq](https://github.com/stedolan/jq/wiki/Installation)
 * [base64](https://command-not-found.com/base64)
 
+## Info
+
+The complete cluster configuration is located in k8s/kind-config.yaml.
+
+## Kind install
+
+Documentation [kind](https://kind.sigs.k8s.io/docs/user/quick-start#installation)
+```bash
+# For AMD64 / x86_64
+[ $(uname -m) = x86_64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.20.0/kind-linux-amd64
+# For ARM64
+[ $(uname -m) = aarch64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.20.0/kind-linux-arm64
+chmod +x ./kind
+sudo mv ./kind /usr/local/bin/kind
+```
+
 ## Help
 
 ```bash
@@ -42,7 +58,7 @@ delete-cluster                     - Delete K8s cluste
 
 Make sure you have all the necessary [requirements](https://github.com/UltherEgo/kind-cluster#requirements) installed
 
-If you already have a kubeconfig, make a backup.
+If you already have a kubeconfig, make a backup
 ```bash
 [ -e ~/.kube/config ] && mv ~/.kube/config ~/.kube/config_bck
 ```
