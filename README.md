@@ -19,7 +19,7 @@ Create local Kubernetes clusters using Docker container "nodes" with [kind](http
 
 The complete cluster configuration is located in `k8s/kind-config.yaml`
 
-Kind builds the cluster in containers, so you can restore the cluster by running containers, eg.
+kind builds the cluster in containers, so you can restore the cluster by running containers, eg.
 ```bash 
 docker ps -a
 CONTAINER ID   IMAGE                  COMMAND                  CREATED       STATUS          PORTS                                                                 NAMES
@@ -30,7 +30,7 @@ d1dfbc732685   kindest/node:v1.27.3   "/usr/local/bin/entr…"   5 hours ago   U
 125a4ffe7e8b   kindest/node:v1.27.3   "/usr/local/bin/entr…"   5 hours ago   Up 16 minutes                                                                         kind-worker3
 ```
 
-## Kind install
+## kind install
 
 Documentation [kind](https://kind.sigs.k8s.io/docs/user/quick-start#installation)
 ```bash
