@@ -34,6 +34,7 @@ deploy-app-nginx-ingress-localhost - Deploy httpd web server and create an ingre
 deploy-app-helloweb                - Deploy helloweb
 deploy-app-golang-hello-world-web  - Deploy golang-hello-world-web app
 deploy-app-foo-bar-service         - Deploy foo-bar-service app
+deploy-kube-prometheus-stack       - Deploy kube-prometheus-stack
 delete-cluster                     - Delete K8s cluste
 ```
 

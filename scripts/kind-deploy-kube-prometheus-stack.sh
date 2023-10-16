@@ -13,6 +13,11 @@ fi
 cd $SCRIPT_PARENT_DIR
 echo "Deploy kube-prometheus-stack"
 
+## Add prometheus and stable repo to local helm repository
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo add stable https://charts.helm.sh/stable
+helm repo update
+
 ## Create Namespace
 echo "Create namespace monitoring"
 kubectl create namespace monitoring
