@@ -1,0 +1,71 @@
+name: End to End Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test-e2e:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        k8s-version: ['v1.24.2']
+        kubectl-version: ['v1.25.0']
+        kind-version: ['v0.14.0']
+
+    steps:
+    - uses: actions/checkout@v3
+
+    # - name: Github variables
+    #   run: |
+    #     echo github.event: '${{ toJson(github.event) }}'
+    #     echo github.event.release.tag_name: ${{ github.event.release.tag_name }}
+    #     echo github.ref: ${{ github.ref }}
+    #     echo github.sha: ${{ github.sha }}
+    #     echo github.head_ref: ${{ github.head_ref }}
+    #     echo github.base_ref: ${{ github.base_reg }}
+
+    # https://github.com/helm/kind-action 
+    - name: Install k8s ${{ matrix.k8s-version }}
+      uses: helm/kind-action@v1.8.0
+      with:
+        version: ${{ matrix.kind-version }}
+        cluster_name: kind
+        config: ./k8s/kind-config.yaml
+        kubectl_version: ${{ matrix.kubectl-version }}
+        node_image: kindest/node:${{ matrix.k8s-version }}
+
+    - run: kubectl cluster-info
+
+    - name: kubectl version
+      run: kubectl
+
+    - name: k8s pods
+      run: kubectl get pods -n kube-system
+
+    - name: Export k8s keys(client) and certificates(client, cluster CA)
+      run: ./scripts/kind-export-cert.sh
+
+    - name: Install k8s dashboard
+      run: ./scripts/kind-add-dashboard.sh
+
+    - name: Install Nginx ingress
+      run: ./scripts/kind-add-ingress-nginx.sh
+
+    - name: Install MetalLB
+      run: ./scripts/kind-add-metallb.sh
+
+    - name: Deploy httpd web server and create an ingress rule for a localhost (http://demo.localdev.me:80/), Patch ingress-nginx-controller service type -> LoadBlancer
+      run: ./scripts/kind-deploy-app-nginx-ingress-localhost.sh
+
+    - name: Deploy helloweb app
+      run: ./scripts/kind-deploy-app-helloweb.sh
+
+    - name: Deploy golang-hello-world-web app
+      run: ./scripts/kind-deploy-app-golang-hello-world-web.sh
+      
+    - name: Deploy foo-bar-service app
+      run: ./scripts/kind-deploy-app-foo-bar-service.sh

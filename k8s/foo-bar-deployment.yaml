@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: foo-app
+  labels:
+    app: http-echo
+spec:
+  selector:
+    matchLabels:
+      app: http-echo
+  template:
+    metadata:
+      labels:
+        app: http-echo
+    spec:
+      containers:
+        - name: foo-app
+          # https://github.com/hashicorp/http-echo
+          image: hashicorp/http-echo:0.2.3
+          args:
+            - "-text=foo"
+          ports:
+            - containerPort: 5678
+          resources:
+            requests:
+              cpu: "300m"
+              memory: "128Mi"
+            limits:
+              cpu: "400m"
+              memory: "256Mi"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bar-app
+  labels:
+    app: http-echo
+spec:
+  selector:
+    matchLabels:
+      app: http-echo
+  template:
+    metadata:
+      labels:
+        app: http-echo
+    spec:
+      containers:
+        - name: foo-app
+          # https://github.com/hashicorp/http-echo
+          image: hashicorp/http-echo:0.2.3
+          args:
+            - "-text=bar"
+          ports:
+            - containerPort: 5678
+          resources:
+            requests:
+              cpu: "1m"
+              memory: "4Mi"
+            limits:
+              cpu: "3m"
+              memory: "8Mi"
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: foo-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: http-echo
+  ports:
+    # Default port used by the image
+    - port: 5678
