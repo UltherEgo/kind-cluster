@@ -40,6 +40,9 @@ delete-cluster                     - Delete K8s cluste
 
 ## Before use
 
+Make sure you have all the necessary requirements installed
+
+If you already have a kubeconfig, make a backup.
 ```bash
 [ -e ~/.kube/config ] && mv ~/.kube/config ~/.kube/config_bck
 ```
