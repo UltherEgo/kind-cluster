@@ -17,7 +17,7 @@ Create local Kubernetes clusters using Docker container "nodes" with [kind](http
 
 ## Info
 
-The complete cluster configuration is located in k8s/kind-config.yaml.
+The complete cluster configuration is located in `k8s/kind-config.yaml`.
 
 ## Kind install
 
